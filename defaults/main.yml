@@ -1,0 +1,6 @@
+---
+mailcatcher_install_ruby: false
+mailcatcher_http_ip: 0.0.0.0
+mailcatcher_http_port: 1080
+mailcatcher_smtp_ip: 0.0.0.0
+mailcatcher_smtp_port: 1025

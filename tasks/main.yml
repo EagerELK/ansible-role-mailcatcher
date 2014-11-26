@@ -1,0 +1,23 @@
+---
+- name: Install Ruby
+  apt: "name={{ item }} state=present"
+  with_items:
+  - ruby1.9.3
+  when: mailcatcher_install_ruby
+
+- name: Install Mailcatcher dependencies
+  apt: "name={{ item }} state=present"
+  with_items:
+  - make
+  - build-essential
+  - libsqlite3-dev
+
+- name: Install the mailcatcher gem
+  gem: name=mailcatcher state=present user_install=no
+
+- name: Kill mailcatcher if it's running
+  shell: pkill -f mailcatcher
+  ignore_errors: true
+
+- name: Run mailcatcher
+  shell: mailcatcher --http-ip {{ mailcatcher_http_ip }} --http-port {{ mailcatcher_http_port }} --smtp-ip {{ mailcatcher_smtp_ip }} --smtp-port {{ mailcatcher_smtp_port }}
